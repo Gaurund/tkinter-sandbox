@@ -8,17 +8,25 @@ class Controller:
         self.model = model
 
         self.view.setup_callbacks(
-            {"increase": self.increase, "decrease": self.decrease}
+            {"increase": self.increase, "decrease": self.decrease, "show": self.show}
         )
 
     def increase(self):
         self.model.increase()
-        self.display()
+        self.change_counter()
 
     def decrease(self):
         self.model.decrease()
-        self.display()
+        self.change_counter()
 
-    def display(self):
+    def change_counter(self):
         counter = self.model.counter
-        self.view.display_counter(counter=counter)
+        self.view.change_counter(counter=counter)
+
+    def show(self):
+        text = """Вы можете очистить содержимое фрейма (Frame) в Tkinter, 
+        удалив все виджеты, которые в нём находятся.
+        Для этого обычно используется метод winfo_children(), 
+        который возвращает список всех дочерних виджетов фрейма, 
+        и затем эти виджеты уничтожаются с помощью метода destroy()."""
+        self.view.show(text=text)
