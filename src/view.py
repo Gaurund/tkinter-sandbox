@@ -14,8 +14,11 @@ class View:
         self.label_text.set("0")
         self.button_increase = ttk.Button(self.main_frame, text="Increase")
         self.button_decrease = ttk.Button(self.main_frame, text="Decrease")
-        self.button_blank = ttk.Button(self.main_frame, text="Clean", command=self.clear_frame_right)
+        self.button_blank = ttk.Button(
+            self.main_frame, text="Clean", command=self.clear_frame_right
+        )
         self.button_show = ttk.Button(self.main_frame, text="Show")
+        self.button_show_entry = ttk.Button(self.main_frame, text="Entry", command=self.show_entry)
 
         self.frame_right = ttk.Frame(self.main_frame)
 
@@ -23,6 +26,7 @@ class View:
         self.button_decrease.grid(column=0, row=1)
         self.button_blank.grid(column=0, row=2)
         self.button_show.grid(column=0, row=3)
+        self.button_show_entry.grid(column=0, row=4)
         self.frame_right.grid(column=1, row=0, rowspan=4)
 
         self.display_counter()
@@ -32,9 +36,6 @@ class View:
         self.button_decrease.config(command=commands["decrease"])
         self.button_show.config(command=commands["show"])
 
-    def clear_frame_right(self):
-        self.clear_frame(self.frame_right)
-
     def display_counter(self):
         self.label_counter = ttk.Label(self.frame_right, textvariable=self.label_text)
         self.label_counter.grid(column=0, row=0)
@@ -43,6 +44,9 @@ class View:
         self.clear_frame_right()
         self.display_counter()
         self.label_text.set(counter)
+
+    def clear_frame_right(self):
+        self.clear_frame(self.frame_right)
 
     def clear_frame(self, frame: ttk.Frame):
         for child in frame.winfo_children():
@@ -54,3 +58,11 @@ class View:
         self.to_show.set(text)
         self.label_show_text = ttk.Label(self.frame_right, textvariable=self.to_show)
         self.label_show_text.grid(column=0, row=0)
+
+    def show_entry(self):
+        self.clear_frame_right()
+        self.entry = ttk.Entry(self.frame_right, width=40)
+        self.enter_entry = ttk.Button(self.frame_right, text="Enter")
+
+        self.entry.grid(column=0, row=0)
+        self.enter_entry.grid(column=0, row=1)
